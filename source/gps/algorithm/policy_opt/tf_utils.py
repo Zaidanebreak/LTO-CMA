@@ -1,4 +1,4 @@
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 def check_list_and_convert(the_object):
     if isinstance(the_object, list):

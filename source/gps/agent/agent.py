@@ -156,7 +156,7 @@ class Agent(object):
         for i in range(num_sensor):
             index[axes[i]] = slice(self._obs_data_idx[data_types[i]][0],
                                    self._obs_data_idx[data_types[i]][-1] + 1)
-        existing_mat[index] = data_to_insert
+        existing_mat[tuple(index)] = data_to_insert
 
     def pack_data_meta(self, existing_mat, data_to_insert, data_types,
                        axes=None):
@@ -239,7 +239,7 @@ class Agent(object):
         for i in range(num_sensor):
             index[axes[i]] = slice(self._x_data_idx[data_types[i]][0],
                                    self._x_data_idx[data_types[i]][-1] + 1)
-        existing_mat[index] = data_to_insert
+        existing_mat[tuple(index)] = data_to_insert
 
     def unpack_data_x(self, existing_mat, data_types, axes=None):
         """

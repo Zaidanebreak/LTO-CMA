@@ -7,6 +7,7 @@ import argparse
 import time
 import numpy as np
 import random
+import appmap  # EXTRA 
 
 # Add gps/python to path so that imports work.
 sys.path.append('/'.join(str.split(__file__, '/')[:-2]))
@@ -152,5 +153,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    r = appmap.Recording()
+    with r:
+        main()
+    with open("GPSTrain.appmap.json", "w+") as mapfile:
+        mapfile.write(appmap.generation.dump(r))
+        mapfile.flush()
 

@@ -1,4 +1,5 @@
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.compat.v1.disable_eager_execution() # To solve the error of eager execution in get_input_layer
 from gps.algorithm.policy_opt.tf_utils import TfMap
 import numpy as np
 

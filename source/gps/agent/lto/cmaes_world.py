@@ -38,7 +38,7 @@ class CMAESWorld(object):
         self.cur_loc = self.init_loc
         self.cur_sigma = self.init_sigma
         self.cur_ps = 0
-        self.es = CMAEvolutionStrategy(self.cur_loc, self.init_sigma, {'popsize': self.init_popsize, 'bounds': self.bounds})
+        self.es = CMAEvolutionStrategy(self.cur_loc, self.init_sigma, {'popsize': self.init_popsize, 'bounds': self.bounds, 'verbose':-1})
         self.solutions, self.func_values = self.es.ask_and_eval(self.fcn)
         self.fbest = self.func_values[np.argmin(self.func_values)]
         self.cur_obj_val = self.fbest
@@ -90,10 +90,15 @@ class CMAESWorld(object):
         for i in range(len(self.past_locs)):
             past_loc_deltas.append(self.past_locs[i])
         past_loc_deltas = np.array(past_loc_deltas).reshape(-1)
+
         past_sigma_deltas = []
         for i in range(len(self.past_sigma)):
-            past_sigma_deltas.append(self.past_sigma[i])
+            if isinstance(self.past_sigma[i], np.ndarray):
+                past_sigma_deltas.extend(self.past_sigma[i])
+            else:
+                past_sigma_deltas.append(self.past_sigma[i])
         past_sigma_deltas = np.array(past_sigma_deltas).reshape(-1)
+
         past_obj_val_deltas = np.hstack((np.zeros((self.history_len-past_obj_val_deltas.shape[0],)), past_obj_val_deltas))
         past_loc_deltas = np.hstack((np.zeros((self.history_len*2-past_loc_deltas.shape[0],)), past_loc_deltas))
         past_sigma_deltas = np.hstack((np.zeros((self.history_len-past_sigma_deltas.shape[0],)), past_sigma_deltas))

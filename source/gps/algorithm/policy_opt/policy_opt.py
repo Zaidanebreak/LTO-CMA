@@ -8,7 +8,7 @@ import numpy as np
 # Changing it can lead to segmentation faults on some machines.
 
 from gps.algorithm.policy_opt.config import POLICY_OPT
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 from gps.algorithm.policy.tf_policy import TfPolicy
 from gps.algorithm.policy_opt.tf_utils import TfSolver
